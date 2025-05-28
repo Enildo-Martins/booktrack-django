@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Meus Livros</title>
+    <link rel="stylesheet" href="{% static 'books/list.css' %}">
+</head>
+<body>
+    <h1>📚 Lista de Leitura</h1>
+
+    <a href="{% url 'add_book' %}" class="add-button">➕ Adicionar Livro</a>
+
+    {% for book in books %}
+        <div class="book">
+            <h2>{{ book.title }}</h2>
+            <p><strong>Autor:</strong> {{ book.author }}</p>
+            <p class="status">Status: {{ book.get_status_display }}</p>
+            {% if book.notes %}
+                <p><em>{{ book.notes }}</em></p>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p class="empty">Nenhum livro cadastrado ainda.</p>
+    {% endfor %}
+</body>
+</html>
